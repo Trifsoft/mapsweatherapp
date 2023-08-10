@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     AppRepository appRepository;
 
+    EditText imeLokacije;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +125,11 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("Add a location")
                 .setCancelable(true)
                 .setNegativeButton("CANCEL", null)
-                .setPositiveButton("OK", null)
+                .setPositiveButton("ADD", null)
                 .create();
         alertDialog.setOnShowListener(dialogInterface ->
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-                EditText imeLokacije = binding.getRoot().findViewById(R.id.imeLokacijeEditText);
+                imeLokacije = binding.getRoot().findViewById(R.id.imeLokacijeEditText);
                 if(selectedLocation == null || imeLokacije.getText().toString().isEmpty()){
                     Toast.makeText(MainActivity.this, "You need to select a location first!", Toast.LENGTH_SHORT).show();
                 }
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         );
         alertDialog.setOnDismissListener((dialogInterface -> {
             map.clear();
+            imeLokacije.setText("");
             selectedLocation = null;
         }));
         
